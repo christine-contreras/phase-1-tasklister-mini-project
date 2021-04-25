@@ -35,3 +35,17 @@ button {
   border-radius: 5px;
   box-shadow: 2px 5px 5px #333;
 }
+
+
+#tasks li input, li .done-btn {
+  display: none;
+}
+
+#tasks li.editing-li input, li.editing-li .done-btn {
+  display: inline-block;
+}
+
+#tasks li.editing-li label,  li.editing-li .edit-btn, li.editing-li .delete-btn{
+  display: none;
+}
+

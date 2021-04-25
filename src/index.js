@@ -40,8 +40,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const textInputValue = textInput.value;
     // console.log("value of input:", textInput);
 
+    //create label for input text
+    const label = document.createElement('label');
+    //create input for editing text 
+    const editInput = document.createElement('input');
+    //create delete button 
+    const deleteBtn = document.createElement('button');
+    //create edit button
+    const editBtn = document.createElement('button');
+    //create done button
+    const doneBtn = document.createElement('button');
+
+    //appending classes and types 
+    editInput.type = "text";
+    editBtn.textContent = "Edit";
+    editBtn.className = "edit-btn";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.className = "delete-btn";
+    doneBtn.textContent = "Done Editing";
+    doneBtn.className = "done-btn";
+
     //add input value to li 
-    listItem.innerHTML = `${textInputValue} <button class="delete-btn">delete</button>`;
+    // listItem.innerHTML = `${textInputValue} <button class="delete-btn">delete</button>`;
+
+    //add input value to label
+    label.textContent = textInputValue;
+    listItem.appendChild(label);
+    listItem.appendChild(editInput);
+    listItem.appendChild(editBtn);
+    listItem.appendChild(deleteBtn);
+    listItem.appendChild(doneBtn);
 
     //append li to ul 
     list.appendChild(listItem);
@@ -49,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  //remove list item dynamically
+  //remove/edit list item dynamically
   //add event listen to ul since li's aren't on page when loaded
   list.addEventListener('click', function(event){
    
@@ -57,8 +85,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const target = event.target;
     // console.log(target)
 
+    //find parent li
+    const parentLi = target.parentElement;
+    console.log(parentLi);
+
     if(target.classList.contains('delete-btn')) {
       list.removeChild(target.parentElement);
+    }
+
+    if(target.classList.contains('edit-btn')) {
+      //add class to li 
+      parentLi.classList.toggle('editing-li');
+
+      //grab label text 
+      const labelText = parentLi.querySelector('label').textContent;
+      console.log('grabbing label', labelText);
+
+      //add label as input value 
+      parentLi.querySelector('input[type=text]').value = labelText;
+    }
+
+    if(target.classList.contains('done-btn')){
+
+      //remove class
+      parentLi.classList.toggle('editing-li');
+
+      //grab input value
+      const newValue = parentLi.querySelector('input[type=text]').value;
+
+      //add new value to label 
+      parentLi.querySelector('label').textContent = newValue;
     }
 
     //confirm alert popup to make sure you want to delete the item
@@ -66,6 +122,9 @@ document.addEventListener("DOMContentLoaded", () => {
     //   //if you press okay then remove li 
     //   target.remove();
     // }
+
+
+    
 
   });
 
