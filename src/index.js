@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //As a user, I should be able to type a task into the input field, click some form of a submit button.
 
   //variable to hold submit button value
-  const button = document.querySelector('input[type=submit]');
+  const button = document.getElementById('submit-task-btn')
   //variable to hold text input
   const textInput = document.getElementById('new-task-description');
 
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // console.log("value of input:", textInput);
 
     //add input value to li 
-    listItem.textContent = textInputValue;
+    listItem.innerHTML = `${textInputValue} <button class="delete-btn">delete</button>`;
 
     //append li to ul 
     list.appendChild(listItem);
@@ -57,11 +57,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const target = event.target;
     // console.log(target)
 
-    //confirm alert popup to make sure you want to delete the item
-    if (confirm('do you want to delete this item?')) {
-      //if you press okay then remove li 
-      target.remove();
+    if(target.classList.contains('delete-btn')) {
+      list.removeChild(target.parentElement);
     }
+
+    //confirm alert popup to make sure you want to delete the item
+    // if (confirm('do you want to delete this item?')) {
+    //   //if you press okay then remove li 
+    //   target.remove();
+    // }
 
   });
 
